@@ -1,0 +1,34 @@
+name: 'Deploy to Azure'
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: '🧑🦱 Azure login'
+        uses: azure/login@v2
+        with:
+          client-id: 51d20b28-adde-4534-ae92-ae9eefb84580
+          tenant-id: b1a8ac21-915f-4351-a075-b30346a974af
+          subscription-id: 1204a1e6-ae9d-4fcc-bb06-4dc4c2e6ff9f
+
+      - name: 'Deploy to Azure'
+        run: |
+          az deployment sub create \
+            --name Deployment-$(date +"%Y-%m-%dT%H-%M-%S") \
+            --template-file resource-group.bicep \
+            --location westeurope \
+            --parameters \
+                location=westeurope \
+                stage=dev

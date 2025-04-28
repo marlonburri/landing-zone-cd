@@ -1,0 +1,17 @@
+LOCATION='westeurope'
+
+az deployment sub create \
+    --name Deployment-$(date +"%Y-%m-%d%H-%S") \
+    --template-file resource-group.bicep \
+    --location $LOCATION \
+    --parameters \
+        location=$LOCATION \
+        stage=dev
+
+az deployment group create \
+    --name Deployment-$(date +"%Y-%m-%d%H-%S") \
+    --template-file storage.bicep \
+    --resource-group course-management-dev \
+    --parameters \
+        location=$LOCATION \
+        stage=dev
