@@ -11,7 +11,7 @@ resource group 'Microsoft.Resources/resourceGroups@2024-11-01' = {
   tags:{
     stage: stage
     project: 'course-management'
-    owner: 'marlon.burri'
+    owner: 'marlon.burri@uzh.ch'
     'hidden-title': 'This is a hidden title'
   }
 }
